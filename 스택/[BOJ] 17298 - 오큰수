@@ -1,0 +1,39 @@
+package study.algorithmwrite;
+
+import java.io.*;
+import java.util.*;
+
+public class Main {
+    // 15시 20 시작 - 10분
+    // 15시 40분 시작 - 30분 동안 아이디어 생각 못함. 다 시간초과
+    // 이중 반복문 사용하는 방법밖에 떠올리지 못함.
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
+
+        int N = Integer.parseInt(st.nextToken());
+        int[] arr = new int[N];
+        int[] check = new int[N];
+        st = new StringTokenizer(br.readLine());
+        for(int i=0;i<N;i++)
+            arr[i] = Integer.parseInt(st.nextToken());
+        Stack<Integer> stack = new Stack<Integer>();
+        for(int i=0;i<N; i++){
+            while(!stack.isEmpty() && arr[stack.peek()] < arr[i]){
+                int index = stack.pop().intValue();
+                check[index] = arr[i];
+            }
+            stack.push(i);
+
+        }
+        while (!stack.isEmpty()){
+            int index = stack.pop().intValue();
+            check[index] = -1;
+        }
+        StringBuilder sb = new StringBuilder();
+        for(int value : check){
+            sb.append(value + " ");
+        }
+        System.out.println(sb);
+    }
+}
